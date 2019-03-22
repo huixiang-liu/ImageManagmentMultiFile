@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -13,23 +14,16 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.im4java.core.ConvertCmd;
 import org.im4java.core.IMOperation;
-import org.im4java.core.Info;
-import org.im4java.process.ProcessStarter;
-
 import java.io.*;
-import java.util.HashMap;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipOutputStream;
 
 public final class UpLoadInterface implements EventHandler<ActionEvent> {
 
     private static Stage window;
-    private static Scene currentScene, scene2,scene3, prevScene;
+    private static Scene currentScene,prevScene;
     private static GridPane gridPane = new GridPane();
-    private static Button uploadButton, downloadButton,backButton;
+    private static Button downloadButton,backButton;
     private static List<File> fileList;
     private static final int DEFAULT_WIDTH = 100;
     private static final int DEFAULT_HEIGHT = 100;
@@ -37,11 +31,10 @@ public final class UpLoadInterface implements EventHandler<ActionEvent> {
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        // Initialization
 
+        // Initialization
         FileInputStream input;
         Image image;
-        javaxt.io.Image imageInfo;
         ImageView imageView;
 
         // Each time we clear the children
@@ -64,21 +57,36 @@ public final class UpLoadInterface implements EventHandler<ActionEvent> {
                 try {
                     input = new FileInputStream(file);
                     image = new Image(input);
-                    imageInfo = new javaxt.io.Image(file.getPath());
-                    HashMap<Integer, Object> exif = imageInfo.getExifTags();
-                    if (exif != null && exif.get(0x010F) != null) { // see http://www.javaxt.com/javaxt-core/io/Image
-                        System.out.println(exif.get(0x010F).toString());
-                        String camera = exif.get(0x0110).toString();
-                        Label l1 = new Label(camera);
-                        gridPane.add(l1, 1, 1);
-                    }
                     imageView = new ImageView(image);
                     imageView.setFitWidth(100);
                     imageView.setFitHeight(100);
                     IMOperation op = new IMOperation();
                     gridPane.add(imageView, indexX, indexY);
 
-                    System.out.println(file.getPath());
+                    //using javaxt.io.image to get the image metadata
+                    javaxt.io.Image imageInfo = new javaxt.io.Image(file.getPath());
+                    java.util.HashMap<Integer, Object> exif = imageInfo.getExifTags();
+                    double[] coord = imageInfo.getGPSCoordinate();
+
+                    //if the gps coordinate information of the image is not null
+                    if (coord!=null) {
+                        //tooltip to display metadata on the imageview
+                        Tooltip t1 = new Tooltip("Camera: " + exif.get(0x0110) +"\n"
+                                + "Width x Height: " +imageInfo.getWidth() + " x " + imageInfo.getHeight() +"\n"
+                                + "GPS Coordinate: " + coord[0] + ", " + coord[1]
+                                + "Date: " + exif.get(0x0132) + "\n"
+                                + "Manufacturer: " + exif.get(0x010F));
+                        Tooltip.install(imageView, t1);
+                    }
+                    //if the gps coordinate information of the image is unavailable
+                    else
+                    {
+                        Tooltip t = new Tooltip("Camera: " + exif.get(0x0110) +"\n"
+                                +"Width x Height: " +imageInfo.getWidth() + " x " + imageInfo.getHeight() +"\n"
+                                +"Date: " + exif.get(0x0132) + "\n"
+                                +"Manufacturer: " + exif.get(0x010F));
+                        Tooltip.install(imageView, t);
+                    }
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
