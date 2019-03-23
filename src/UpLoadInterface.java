@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -28,6 +29,8 @@ public final class UpLoadInterface implements EventHandler<ActionEvent> {
     private static final int DEFAULT_WIDTH = 100;
     private static final int DEFAULT_HEIGHT = 100;
     private static final FileChooser fileChooser = new FileChooser();
+    private static CheckBox zipBox = new CheckBox("Save as zip");
+    private static boolean isZip;
 
     @Override
     public void handle(ActionEvent actionEvent) {
@@ -95,6 +98,9 @@ public final class UpLoadInterface implements EventHandler<ActionEvent> {
         window.setScene(currentScene);
         window.show();
 
+
+        downloadButton.setOnAction(new DownloadInterface(fileList, window, zipBox));
+
     }
 
 
@@ -105,7 +111,6 @@ public final class UpLoadInterface implements EventHandler<ActionEvent> {
 
         // Set download button
         downloadButton = new Button("Download Images");
-        downloadButton.setOnAction(new DownloadInterface(fileList, window));
         downloadButton.setMaxWidth(200);
 
         // set back button
@@ -127,10 +132,11 @@ public final class UpLoadInterface implements EventHandler<ActionEvent> {
         layout2.setAlignment(Pos.TOP_CENTER);
 
         //Layout2 - children are laid out in vertical column
-        layout2.getChildren().addAll(label,gridPane,downloadButton,backButton);
+        layout2.getChildren().addAll(label,gridPane,downloadButton,backButton, zipBox);
         BackgroundFill backgroundFill=new BackgroundFill(Color.PALEVIOLETRED, CornerRadii.EMPTY, Insets.EMPTY);
         Background background=new Background(backgroundFill);
         layout2.setBackground(background);
+
 
         // Initialize currentScene
         currentScene = new Scene(layout2, 600, 500);

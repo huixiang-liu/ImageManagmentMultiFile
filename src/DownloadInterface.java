@@ -1,5 +1,7 @@
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import org.im4java.core.ConvertCmd;
@@ -18,15 +20,41 @@ import java.util.zip.ZipOutputStream;
 public class DownloadInterface implements EventHandler<ActionEvent> {
     private List<File> fileList;
     private Window window;
+    private static Scene currentScene,prevScene;
     private static final int DEFAULT_WIDTH = 100;
     private static final int DEFAULT_HEIGHT = 100;
     private static Downloader downloader;
+    private CheckBox isZip;
 
     @Override
     public void handle(ActionEvent event) {
+        //String Zipfile = "C:/Users/Soumya/Pictures/Images.zip";
+        if (isZip.isSelected()) {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialFileName("Images.zip");
+            fileChooser.getExtensionFilters().add
+                    (new FileChooser.ExtensionFilter("Zip","*.zip"));
+            File zipFile = fileChooser.showSaveDialog(window);
 
 
+            if (zipFile != null) {
+                ZipDownloader.download(fileList, zipFile);
+            }
 
+        } else {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setInitialFileName("Images");
+            fileChooser.getExtensionFilters().addAll
+                    (new FileChooser.ExtensionFilter("JPG","*.jpg"),
+                            new FileChooser.ExtensionFilter("PNG","*.png"));
+            File zipFile = fileChooser.showSaveDialog(window);
+
+            if (zipFile != null) {
+                JPGDownloader.download(fileList, zipFile.getPath());
+            }
+
+
+        }
     }
 
 
@@ -82,9 +110,10 @@ public class DownloadInterface implements EventHandler<ActionEvent> {
         }
     }
 
-    public DownloadInterface(List<File> fileList, Window window) {
+    public DownloadInterface(List<File> fileList, Window window, CheckBox isZip) {
         downloader = new Downloader();
         this.fileList = fileList;
         this.window = window;
+        this.isZip = isZip;
     }
 }

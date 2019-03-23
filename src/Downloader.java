@@ -1,7 +1,7 @@
 import java.io.File;
 import java.util.List;
 
-class Downloader {
+public class Downloader {
     static JPGDownloader jpgDownloader;
     static ZipDownloader zipDownloader;
 
