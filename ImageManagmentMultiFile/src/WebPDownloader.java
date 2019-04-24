@@ -9,9 +9,9 @@ public class WebPDownloader extends Downloader{
 
         System.out.println("Please wait for all selected files to be downloaded");
 
-        // Change this path to your ImageMagick path
-        String myPath="C://Users//Soumya//Documents//NEU//INFO5100//ImageMagick-7.0.8-25-portable-Q16-x64";
-        ProcessStarter.setGlobalSearchPath(myPath);
+        String currDirectory = System.getProperty("user.dir");
+        currDirectory += "\\ImageManagmentMultiFile\\ImageMagick-7.0.8-25-portable-Q16-x64";
+        ProcessStarter.setGlobalSearchPath(currDirectory);
         String folder = path.substring(0, path.lastIndexOf('.'));
         String extention = path.substring(path.lastIndexOf('.'));
         System.out.println("Save folder is " + folder);

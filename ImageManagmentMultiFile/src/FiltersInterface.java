@@ -92,8 +92,8 @@ public class FiltersInterface implements EventHandler<ActionEvent>  {
     FiltersInterface(Stage window, Scene prevScene) {
         this.window = window;
         this.prevScene = prevScene;
-        File imageFile = new File("C:\\Users\\Soumya\\Downloads\\ImageManagmentMultiFile\\ImageManagmentMultiFile\\Images\\back.png");
-        File imageFile2 = new File("C:\\Users\\Soumya\\Downloads\\ImageManagmentMultiFile\\ImageManagmentMultiFile\\Images\\ImageEffects.png");
+        File imageFile = new File(this.getClass().getResource("back.png").toString().substring(6));
+        File imageFile2 = new File(this.getClass().getResource("ImageEffects.png").toString().substring(6));
         Image imageOfBackButton = new Image(imageFile.toURI().toString());
         Image imageEffects = new Image(imageFile2.toURI().toString());
         backButton = new Button("Go Back",new ImageView(imageOfBackButton));

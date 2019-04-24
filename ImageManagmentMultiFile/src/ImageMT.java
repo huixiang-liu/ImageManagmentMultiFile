@@ -42,10 +42,10 @@ public class ImageMT extends Application {
         DropShadow shadow = new DropShadow(10,DARKSLATEBLUE);
         Label label = new Label("Welcome To Image Management Tool");
 
-        //Get Button Image Icons from saved path - Set it to your location
-        File imageFile = new File("C:\\Users\\Soumya\\Downloads\\ImageManagmentMultiFile\\ImageManagmentMultiFile\\Images\\uploadImage.png");
-        File imageFile2 = new File("C:\\Users\\Soumya\\Downloads\\ImageManagmentMultiFile\\ImageManagmentMultiFile\\Images\\Effects.png");
-        File gallery = new File("C:\\Users\\Soumya\\Downloads\\ImageManagmentMultiFile\\ImageManagmentMultiFile\\Images\\gallery.png");
+        //Include images in this project
+        File imageFile = new File(this.getClass().getResource("uploadImage.png").toString().substring(6));
+        File imageFile2 = new File(this.getClass().getResource("Effects.png").toString().substring(6));
+        File gallery = new File(this.getClass().getResource("gallery.png").toString().substring(6));
 
         //uploadButton setting facilitates image upload
         Image imageUpload = new Image(imageFile.toURI().toString());

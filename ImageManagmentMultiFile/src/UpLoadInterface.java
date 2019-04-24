@@ -100,8 +100,8 @@ public final class UpLoadInterface implements EventHandler<ActionEvent> {
         DropShadow shadow = new DropShadow(10,MEDIUMPURPLE);
 
         //Get Button Icons from saved path
-        File imageFile = new File("C:\\Users\\Soumya\\Downloads\\ImageManagmentMultiFile\\ImageManagmentMultiFile\\Images\\download.png");
-        File imageFile2 = new File("C:\\Users\\Soumya\\Downloads\\ImageManagmentMultiFile\\ImageManagmentMultiFile\\Images\\back.png");
+        File imageFile = new File(this.getClass().getResource("download.png").toString().substring(6));
+        File imageFile2 = new File(this.getClass().getResource("back.png").toString().substring(6));
 
         // Set download button
         Image imageDownload = new Image(imageFile.toURI().toString());
