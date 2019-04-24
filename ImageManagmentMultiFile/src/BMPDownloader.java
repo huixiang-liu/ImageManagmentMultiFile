@@ -1,16 +1,17 @@
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IMOperation;
 import org.im4java.process.ProcessStarter;
-
 import java.io.File;
 import java.util.List;
 
-public class JPGDownloader extends Downloader{
+public class BMPDownloader extends Downloader{
     public static boolean download(List<File> fileList, String path) {
+
+        System.out.println("Please wait for all selected files to be downloaded");
+
         // Change this path to your ImageMagick path
-        String myPath="C:\\Program Files\\ImageMagick-7.0.8-Q16";
+        String myPath="C://Users//Soumya//Documents//NEU//INFO5100//ImageMagick-7.0.8-25-portable-Q16-x64";
         ProcessStarter.setGlobalSearchPath(myPath);
-        // TO-DO
         String folder = path.substring(0, path.lastIndexOf('.'));
         String extention = path.substring(path.lastIndexOf('.'));
         System.out.println("Save folder is " + folder);
@@ -41,7 +42,7 @@ public class JPGDownloader extends Downloader{
                 System.out.println(e.toString());
             }
         }
-        System.out.println("Conversion finished");
+        System.out.println("Images saved in the desired BMP format");
         return true;
     }
 }

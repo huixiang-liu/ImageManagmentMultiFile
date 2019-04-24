@@ -10,7 +10,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../ImageManagementTool/javaxt-core.jar!/" />
+          <root url="jar://$MODULE_DIR$/im4java-1.4.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -19,7 +19,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Desktop/NEU/courses/5100/im4java-1.4.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/javaxt-core.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
